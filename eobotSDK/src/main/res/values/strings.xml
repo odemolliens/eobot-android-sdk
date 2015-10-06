@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">EobotSDK</string>
+
+    <!-- Error & result -->
+    <string name="app_error_coin">Error, you have selected more coins than you have</string>
+    <string name="app_error_error">An error has occurred</string>
+    <string name="app_error_user">User session is closed. You must login again</string>
+    <string name="app_result_complete">"Complete!</string>
+
+    <!-- Internet -->
+    <string name="internet_need_internet">It is necessary to be connected to the internet, please check your connection</string>
+    <string name="internet_sign">Please Sign in or Sign up</string>
+    <string name="internet_connecting">Connecting&#8230;</string>
+
+
+</resources>
