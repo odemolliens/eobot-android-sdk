@@ -87,7 +87,7 @@ public class EobotInterface {
      * Eobot - WSListener - change current mining call
      */
     public interface EobotChangeMiningListener {
-        void successed(boolean output);
+        void successed(boolean result);
 
         void failure(EobotError output);
     }
@@ -102,10 +102,19 @@ public class EobotInterface {
     }
 
     /**
-     * Eobot - WSListener - convert call
+     * Eobot - WSListener - buyCloud call
      */
     public interface EobotConvertListener {
-        void successed(Object output);
+        void successed(boolean result);
+
+        void failure(EobotError output);
+    }
+
+    /**
+     * Eobot - WSListener - buy coin estimate call
+     */
+    public interface EobotExchangeEstimateListener {
+        void successed(double estimatedAmount);
 
         void failure(EobotError output);
     }

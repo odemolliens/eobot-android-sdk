@@ -215,6 +215,16 @@ public class ServerHelper {
     }
 
     /**
+     * Exchange estimate URL
+     *
+     * @return builded url
+     */
+    public String exchangeEstimateURL(String convertFrom, String amount, String convertTo) {
+        String rootUrl = ServerHelper.sharedServerHelper().rootURL();
+        return rootUrl + S_SERVERHELPER_API_PATH + "?exchangefee=true" + "&convertfrom=" + convertFrom + "&amount=" + amount + "&convertto=" + convertTo + S_SERVERHELPER_API_KEY_JSON_RESULT;
+    }
+
+    /**
      * Supported coins URL
      *
      * @param value

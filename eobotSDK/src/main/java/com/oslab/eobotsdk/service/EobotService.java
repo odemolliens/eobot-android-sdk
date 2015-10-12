@@ -333,15 +333,15 @@ public class EobotService {
     }
 
     /**
-     * Post convert service
+     * Buy cloud service
      *
      * @param user        current user
-     * @param convertFrom currency to convert
+     * @param convertFrom currency to buyCloud BTC, LTC, BLK, NMC, DOGE, XRP, DASH, RDD, BTS, CURE, SJCX, XMR, XCP, STR, BCN, PPC, NXT, MAID, ETH, GRC
      * @param amount      current amount
-     * @param convertTo   currency to get
+     * @param convertTo   GHS or GHS2 or SCRYPT
      * @param listener    Convert listener
      */
-    public static void convert(User user, String convertFrom, String amount, String convertTo, final EobotInterface.EobotConvertListener listener) {
+    public static void buyCloud(User user, String convertFrom, String amount, String convertTo, final EobotInterface.EobotConvertListener listener) {
         //GET
         String url = ServerHelper.sharedServerHelper().convertURL(user.getUserID(), user.getUserEmail(), user.getUserPassword(), convertFrom, amount, convertTo);
 
@@ -350,11 +350,44 @@ public class EobotService {
         aTask.setDelegate(new EobotInterface.EobotBasicListener() {
             @Override
             public void successed(JSONObject output) {
+                listener.successed(true);
+            }
+
+            @Override
+            public void failure(EobotError output) {
+                listener.failure(output);
+            }
+        });
+
+        aTask.execute(url);
+    }
+
+
+    /**
+     * Exchange estimate service
+     *
+     * @param convertFrom currency to
+     * @param amount      current amount
+     * @param convertTo   convert to any coin available on list
+     * @param listener    Convert listener
+     */
+    public static void exchangeEstimateCoin(String convertFrom, String amount, String convertTo, final EobotInterface.EobotExchangeEstimateListener listener) {
+        //GET
+        String url = ServerHelper.sharedServerHelper().exchangeEstimateURL(convertFrom, amount, convertTo);
+
+        EobotTask aTask = new EobotTask();
+
+        aTask.setDelegate(new EobotInterface.EobotBasicListener() {
+            @Override
+            public void successed(JSONObject output) {
+                //TODO
                 try {
-                    //TODO: parse object
-                    new JSONObject("");
-                    listener.successed(new Object());
+                    listener.successed(Double.valueOf(output.getString("Result")));
+
                 } catch (JSONException e) {
+                    e.printStackTrace();
+                    listener.failure(EobotError.parseError());
+                } catch (Exception e) {
                     e.printStackTrace();
                     listener.failure(EobotError.parseError());
                 }

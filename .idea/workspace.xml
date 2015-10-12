@@ -24,8 +24,8 @@
       <file leaf-file-name="UserData.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/eobotSDK/src/androidTest/java/com/oslab/eobotsdk/constants/UserData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52104497">
-              <caret line="34" column="7" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
+            <state vertical-scroll-proportion="0.6516691">
+              <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -1514,6 +1514,13 @@
       <projects_view />
     </option>
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/eobotSDK/src/androidTest/java/com/oslab/eobotsdk/constants/UserData.java" />
+      </list>
+    </option>
+  </component>
   <component name="NamedScopeManager">
     <order />
   </component>
@@ -1776,8 +1783,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/eobotSDK/src/androidTest/java/com/oslab/eobotsdk/constants/UserData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52104497">
-          <caret line="34" column="7" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.6516691">
+          <caret line="40" column="7" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
           <folding />
         </state>
       </provider>

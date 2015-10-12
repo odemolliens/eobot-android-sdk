@@ -3,7 +3,6 @@ package com.oslab.eobotsdk.service;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import com.neopixl.logger.NPLog;
 import com.oslab.eobotsdk.constants.UserData;
 import com.oslab.eobotsdk.domain.Coin;
 import com.oslab.eobotsdk.domain.CurrentMining;
@@ -285,10 +284,28 @@ public class EobotServiceTest extends ApplicationTestCase<Application> {
      * Convert successed
      */
     public void convertSuccess() {
-        EobotService.convert(UserData.realUser(), "DOGE", "1", "BTC", new EobotInterface.EobotConvertListener() {
+        EobotService.buyCloud(UserData.realUser(), "DOGE", "10", "GHS2", new EobotInterface.EobotConvertListener() {
             @Override
-            public void successed(Object output) {
+            public void successed(boolean result) {
+                assert true;
+            }
 
+            @Override
+            public void failure(EobotError output) {
+                assert false;
+            }
+        });
+    }
+
+    /**
+     * Convert exchange estimate
+     */
+    public void exchangeEstimateSuccess() {
+        EobotService.exchangeEstimateCoin("DOGE", "20", "BTC", new EobotInterface.EobotExchangeEstimateListener() {
+            @Override
+            public void successed(double result) {
+                assert result > 0;
+                assert true;
             }
 
             @Override
