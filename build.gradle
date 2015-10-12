@@ -16,7 +16,11 @@ allprojects {
     repositories {
         jcenter()
     }
+
+    group 'com.oslab.eobotsdk'
+    version = '1.0.0'
 }
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir
