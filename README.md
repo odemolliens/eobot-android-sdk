@@ -47,5 +47,9 @@ ChangeLog
 
 ** 1.0.0 **
 
+- Implement cache request system
+
+** 1.0.0 **
+
 - All services from Eobot API are implemented
 - All basics unit test are implemented
