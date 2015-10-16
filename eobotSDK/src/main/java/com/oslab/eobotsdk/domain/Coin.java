@@ -9,6 +9,32 @@ import org.json.*;
  */
 public class Coin {
 
+    public static final String[] S_COINNAME_ARRAY = {CoinName.USD.name, CoinName.EUR.name, CoinName.JPY.name, CoinName.GBP.name,
+            CoinName.CNY.name, CoinName.CAD.name, CoinName.AUD.name, CoinName.MXN.name, CoinName.CZK.name,
+            CoinName.BTC.name, CoinName.LTC.name, CoinName.DOGE.name};
+
+    public enum CoinName {
+
+        USD("USD"),
+        EUR("EUR"),
+        JPY("JPY"),
+        GBP("GBP"),
+        CNY("CNY"),
+        CAD("CAD"),
+        AUD("AUD"),
+        MXN("MXN"),
+        CZK("CZK"),
+        BTC("BTC"),
+        LTC("LTC"),
+        DOGE("DOGE");
+
+        private String name;
+
+        private CoinName(String s) {
+            name = s;
+        }
+    }
+
     /**
      * Coin name
      */
@@ -72,6 +98,7 @@ public class Coin {
 
     /**
      * Get image url
+     *
      * @return image url
      */
     public String getImage() {
@@ -80,6 +107,7 @@ public class Coin {
 
     /**
      * Get big image url
+     *
      * @return big image url
      */
     public String getBigImage() {
@@ -88,6 +116,7 @@ public class Coin {
 
     /**
      * Get price
+     *
      * @return get current price
      */
     public double getPrice() {
@@ -96,6 +125,7 @@ public class Coin {
 
     /**
      * Get coin name
+     *
      * @return coin name
      */
     public String getName() {

@@ -12,6 +12,7 @@ import com.oslab.eobotsdk.domain.UserID;
 import com.oslab.eobotsdk.service.manager.EobotInterface;
 import com.oslab.eobotsdk.service.manager.EobotTask;
 import com.oslab.eobotsdk.helper.ServerHelper;
+import com.oslab.eobotsdk.service.manager.EobotTaskConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -66,7 +67,9 @@ public class EobotService {
             }
         });
 
-        aTask.execute(url);
+
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
     }
 
     /**
@@ -102,7 +105,8 @@ public class EobotService {
             }
         });
 
-        aTask.execute(url);
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
     }
 
     /**
@@ -167,7 +171,8 @@ public class EobotService {
             }
         });
 
-        aTask.execute(url);
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
     }
 
     /**
@@ -203,7 +208,8 @@ public class EobotService {
             }
         });
 
-        aTask.execute(url);
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
     }
 
     /**
@@ -237,7 +243,8 @@ public class EobotService {
             }
         });
 
-        aTask.execute(url);
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
     }
 
     /**
@@ -271,7 +278,8 @@ public class EobotService {
             }
         });
 
-        aTask.execute(url);
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
     }
 
     /**
@@ -299,7 +307,8 @@ public class EobotService {
             }
         });
 
-        aTask.execute(url);
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
     }
 
     /**
@@ -329,7 +338,8 @@ public class EobotService {
             }
         });
 
-        aTask.execute(url);
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
     }
 
     /**
@@ -359,7 +369,8 @@ public class EobotService {
             }
         });
 
-        aTask.execute(url);
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
     }
 
 
@@ -399,7 +410,8 @@ public class EobotService {
             }
         });
 
-        aTask.execute(url);
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
     }
 
     /**
@@ -453,7 +465,9 @@ public class EobotService {
             }
         });
 
-        aTask.execute(url);
+        EobotTaskConfig config = new EobotTaskConfig(url, 24 * 60, false);
+        aTask.execute(config);
+
     }
 
 

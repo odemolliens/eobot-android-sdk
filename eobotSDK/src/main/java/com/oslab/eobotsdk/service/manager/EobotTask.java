@@ -1,8 +1,13 @@
 package com.oslab.eobotsdk.service.manager;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.neopixl.logger.NPLog;
+import com.oslab.eobotsdk.app.App;
 import com.oslab.eobotsdk.domain.EobotError;
+import com.squareup.okhttp.Cache;
+import com.squareup.okhttp.CacheControl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
@@ -18,8 +23,9 @@ import java.util.concurrent.TimeUnit;
  * Created by Demolliens Olivier - @odemolliens on 24/09/15.
  * Eobot
  */
-public class EobotTask extends AsyncTask<String, Void, EobotResult> {
+public class EobotTask extends AsyncTask<EobotTaskConfig, Void, EobotResult> {
 
+    public static final int S_EOBOT_TASK_NO_CACHE = -1;
     /**
      * Delegate
      */
@@ -30,14 +36,34 @@ public class EobotTask extends AsyncTask<String, Void, EobotResult> {
     /**
      * Run request
      *
-     * @param url to call
+     * @param url          to call
+     * @param cacheTime    duration when we cache the response
+     * @param forceRefresh avoid cache and call server
      * @return response or "" or "Error"
      * @throws IOException throw an IOError
      */
-    EobotResult run(String url) throws IOException {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
+    EobotResult run(String url, int cacheTime, boolean forceRefresh) throws IOException {
+
+        try {
+            Cache responseCache = new Cache(App.getAppContext().getCacheDir(), 10 * 1024 * 1024);
+            mClient.setCache(responseCache);
+            //http://stackoverflow.com/questions/29119253/retrofit-okhttp-client-how-to-cache-the-response ?
+        } catch (Exception e) {
+            NPLog.e("Unable to set http cache:" + e);
+        }
+
+        Request request;
+
+        if (cacheTime != S_EOBOT_TASK_NO_CACHE || forceRefresh == true) {
+            request = new Request.Builder()
+                    .url(url)
+                    .build();
+        } else {
+            request = new Request.Builder()
+                    .url(url)
+                    .cacheControl(new CacheControl.Builder().maxAge(cacheTime, TimeUnit.MINUTES).build())
+                    .build();
+        }
 
         Response response = mClient.newCall(request).execute();
 
@@ -51,7 +77,7 @@ public class EobotTask extends AsyncTask<String, Void, EobotResult> {
      * @return response in String format
      */
     @Override
-    protected EobotResult doInBackground(String... params) {
+    protected EobotResult doInBackground(EobotTaskConfig... params) {
         try {
 
             // Define timeout
@@ -59,7 +85,10 @@ public class EobotTask extends AsyncTask<String, Void, EobotResult> {
             mClient.setWriteTimeout(10, TimeUnit.SECONDS);
             mClient.setReadTimeout(30, TimeUnit.SECONDS);
 
-            return this.run(params[0]);
+            EobotTaskConfig config = params[0];
+
+            return this.run(config.getUrl(), config.getCacheTime(), config.isForceRefresh());
+
         } catch (IOException e) {
             e.printStackTrace();
             //TODO:
