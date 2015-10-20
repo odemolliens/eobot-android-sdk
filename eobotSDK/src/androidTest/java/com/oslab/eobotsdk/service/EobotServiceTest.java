@@ -316,5 +316,42 @@ public class EobotServiceTest extends ApplicationTestCase<Application> {
     }
 
 
+    /**
+     * Manual withdraw successed
+     */
+    public void manualWithdrawSuccess() {
+        EobotService.manualWithdraw(UserData.realUser(), "1PK...", new Coin(0, "DOGE"), 1, new EobotInterface.EobotWithdrawListener() {
+            @Override
+            public void successed(boolean result) {
+                ;
+                assert true;
+            }
+
+            @Override
+            public void failure(EobotError output) {
+                assert false;
+            }
+        });
+    }
+
+
+    /**
+     * Automatic withdraw successed
+     */
+    public void automaticWithdrawSuccess() {
+        EobotService.automaticWithdraw(UserData.realUser(), "1PK...", new Coin(0, "DOGE"), 1, new EobotInterface.EobotWithdrawListener() {
+            @Override
+            public void successed(boolean result) {
+                ;
+                assert true;
+            }
+
+            @Override
+            public void failure(EobotError output) {
+                assert false;
+            }
+        });
+    }
+
 }
 

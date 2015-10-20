@@ -1,5 +1,7 @@
 package com.oslab.eobotsdk.helper;
 
+import com.oslab.eobotsdk.domain.Coin;
+
 /**
  * ServerHelper - manage current env., provide url with parameters
  * Created by Demolliens Olivier - @odemolliens on 24/09/15.
@@ -228,7 +230,7 @@ public class ServerHelper {
      * Supported coins URL
      *
      * @param value
-     * @return
+     * @return builded url
      */
     public String supportedCoins(Boolean value) {
         String rootUrl = ServerHelper.sharedServerHelper().rootURL();
@@ -243,6 +245,37 @@ public class ServerHelper {
         return rootUrl + S_SERVERHELPER_API_PATH + "?supportedcoins=" + value + S_SERVERHELPER_API_KEY_JSON_RESULT;
     }
 
+    /**
+     * Manual withdraw
+     *
+     * @param id       user id
+     * @param email    user email
+     * @param password user password
+     * @param coin     coin to withdraw
+     * @param amount   amount to withdraw
+     * @param address  withdraw address
+     * @return builded url
+     */
+    public String manualWithdraw(String id, String email, String password, Coin coin, double amount, String address) {
+        String rootUrl = ServerHelper.sharedServerHelper().rootURL();
+        return rootUrl + S_SERVERHELPER_API_PATH + S_SERVERHELPER_API_KEY_ID + id + "&email=" + email + S_SERVERHELPER_API_KEY_PASSWORD + password + "&manualwithdraw=" + coin.getName() + "&amount=" + amount + "&wallet=" + address + S_SERVERHELPER_API_KEY_JSON_RESULT;
+    }
+
+    /**
+     * Automatic withdraw
+     *
+     * @param id       user id
+     * @param email    user email
+     * @param password user password
+     * @param coin     coin to withdraw
+     * @param amount   amount to withdraw
+     * @param address  withdraw address
+     * @return builded url
+     */
+    public String automaticWithdraw(String id, String email, String password, Coin coin, double amount, String address) {
+        String rootUrl = ServerHelper.sharedServerHelper().rootURL();
+        return rootUrl + S_SERVERHELPER_API_PATH + S_SERVERHELPER_API_KEY_ID + id + "&email=" + email + S_SERVERHELPER_API_KEY_PASSWORD + password + "&withdraw=" + coin.getName() + "&amount=" + amount + "&wallet=" + address + S_SERVERHELPER_API_KEY_JSON_RESULT;
+    }
 
     /**
      * Config Enum

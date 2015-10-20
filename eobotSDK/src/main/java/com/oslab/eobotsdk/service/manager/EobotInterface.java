@@ -128,5 +128,13 @@ public class EobotInterface {
         void failure(EobotError output);
     }
 
+    /**
+     * Eobot - WSListener - withdraw (manual & auto) call
+     */
+    public interface EobotWithdrawListener {
+        void successed(boolean result);
+
+        void failure(EobotError output);
+    }
 
 }
