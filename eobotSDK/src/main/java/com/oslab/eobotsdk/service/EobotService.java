@@ -470,5 +470,66 @@ public class EobotService {
 
     }
 
+    /**
+     * Manual withdraw
+     *
+     * @param user     user account
+     * @param address  amount to send to this address
+     * @param coin     coin name
+     * @param amount   amount to withdraw
+     * @param listener EobotWithdrawListener
+     */
+    public static void manualWithdraw(User user, String address, Coin coin, double amount, final EobotInterface.EobotWithdrawListener listener) {
+        //GET
+        String url = ServerHelper.sharedServerHelper().manualWithdraw(user.getUserID(), user.getUserEmail(), user.getUserPassword(), coin, amount, address);
+
+        EobotTask aTask = new EobotTask();
+
+        aTask.setDelegate(new EobotInterface.EobotBasicListener() {
+            @Override
+            public void successed(JSONObject output) {
+                listener.successed(true);
+            }
+
+            @Override
+            public void failure(EobotError output) {
+                listener.failure(output);
+            }
+        });
+
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
+    }
+
+    /**
+     * Automatic withdraw
+     *
+     * @param user     user account
+     * @param address  amount to send to this address
+     * @param coin     coin name
+     * @param amount   amount to withdraw
+     * @param listener EobotWithdrawListener
+     */
+    public static void automaticWithdraw(User user, String address, Coin coin, double amount, final EobotInterface.EobotWithdrawListener listener) {
+        //GET
+        String url = ServerHelper.sharedServerHelper().automaticWithdraw(user.getUserID(), user.getUserEmail(), user.getUserPassword(), coin, amount, address);
+
+        EobotTask aTask = new EobotTask();
+
+        aTask.setDelegate(new EobotInterface.EobotBasicListener() {
+            @Override
+            public void successed(JSONObject output) {
+                listener.successed(true);
+            }
+
+            @Override
+            public void failure(EobotError output) {
+                listener.failure(output);
+            }
+        });
+
+        EobotTaskConfig config = new EobotTaskConfig(url, EobotTask.S_EOBOT_TASK_NO_CACHE, true);
+        aTask.execute(config);
+    }
 
 }

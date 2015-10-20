@@ -1,5 +1,7 @@
 package com.oslab.eobotsdk.domain;
 
+import android.support.v4.util.Pair;
+
 import org.json.*;
 
 /**
@@ -94,6 +96,40 @@ public class Coin {
         this.price = json.optDouble("Price");
         this.name = name;
 
+    }
+
+    /**
+     * Get deposit rules (minimun amount)
+     *
+     * @return filled pair with coin name and minimun deposit amount
+     */
+    public Pair<String, String> getDepositRules() {
+
+        String coinName = null;
+        String minimunDepositValue = null;
+
+        //TODO: fix when rules are on server
+        if (this.getName().equals(Coin.CoinName.BTC.name())) {
+            coinName = Coin.CoinName.BTC.name();
+            minimunDepositValue = "0.0005";
+        } else if (this.getName().equals(Coin.CoinName.DOGE.name())) {
+            coinName = Coin.CoinName.DOGE.name();
+            minimunDepositValue = "10.0";
+        } else if (this.getName().equals("PPC")) {
+            coinName = "PPC";
+            minimunDepositValue = "1.0";
+        } else if (this.getName().equals("NXT")) {
+            coinName = "NXT";
+            minimunDepositValue = "5.0";
+        } else if (this.getName().equals("RDD")) {
+            coinName = "RDD";
+            minimunDepositValue = "10.0";
+        } else {
+            coinName = this.getName();
+            minimunDepositValue = "0.01";
+        }
+
+        return new Pair<String, String>(coinName, minimunDepositValue);
     }
 
     /**
