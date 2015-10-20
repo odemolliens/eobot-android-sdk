@@ -45,7 +45,11 @@ Maven Setup
 ChangeLog
 ===
 
-** 1.0.0 **
+** 1.0.2 **
+
+- Implement manual & automatic withdraw
+
+** 1.0.1 **
 
 - Implement cache request system
 
