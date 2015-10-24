@@ -91,11 +91,21 @@ public class Coin {
      */
     public Coin(JSONObject json, String name) {
 
-        this.image = json.optString("Image");
-        this.bigImage = json.optString("BigImage");
-        this.price = json.optDouble("Price");
-        this.name = name;
+        try {
 
+            //coinprice service
+            double coinPrice = Double.valueOf(json.optString(name));
+            this.price = coinPrice;
+            this.name = name;
+
+        } catch (NumberFormatException e) {
+
+            this.image = json.optString("Image");
+            this.bigImage = json.optString("BigImage");
+            this.price = json.optDouble("Price");
+            this.name = name;
+
+        }
     }
 
     /**
