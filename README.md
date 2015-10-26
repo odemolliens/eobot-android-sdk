@@ -45,6 +45,10 @@ Maven Setup
 ChangeLog
 ===
 
+** 1.0.3 **
+
+- Fixed a bug on getCoinPrice service
+
 ** 1.0.2 **
 
 - Implement manual & automatic withdraw
