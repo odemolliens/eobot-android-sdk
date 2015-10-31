@@ -47,6 +47,10 @@ ChangeLog
 
 ** 1.0.3 **
 
+- Added getSupportedFiatCoins service
+
+** 1.0.3 **
+
 - Fixed a bug on getCoinPrice service
 
 ** 1.0.2 **

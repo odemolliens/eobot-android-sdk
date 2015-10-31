@@ -471,6 +471,62 @@ public class EobotService {
     }
 
     /**
+     * Supported coins service
+     *
+     * @param value    supported or not
+     * @param listener SupportedCoi listener
+     */
+    public static void getSupportedFiatCoins(Boolean value, final EobotInterface.EobotSupportedCoinListener listener) {
+        //GET
+        String url = ServerHelper.sharedServerHelper().supportedFIATCoins(value);
+
+        EobotTask aTask = new EobotTask();
+
+        aTask.setDelegate(new EobotInterface.EobotBasicListener() {
+            @Override
+            public void successed(JSONObject output) {
+                try {
+
+                    ArrayList<Coin> coinArrayList = new ArrayList<Coin>();
+
+                    Iterator<?> keys = output.keys();
+
+                    while (keys.hasNext()) {
+                        String key = (String) keys.next();
+                        if (key != null && output.get(key) instanceof JSONObject) {
+
+                            Coin coin = new Coin((JSONObject) output.get(key), key);
+
+                            if (coin != null) {
+                                coinArrayList.add(coin);
+                            }
+                        }
+                    }
+
+                    if (coinArrayList.size() == 0) {
+                        listener.failure(EobotError.serverError());
+                    } else {
+                        listener.successed(coinArrayList);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    listener.failure(EobotError.parseError());
+                }
+            }
+
+            @Override
+            public void failure(EobotError output) {
+                listener.failure(output);
+            }
+        });
+
+        EobotTaskConfig config = new EobotTaskConfig(url, 24 * 60, false);
+        aTask.execute(config);
+
+    }
+
+    /**
      * Manual withdraw
      *
      * @param user     user account

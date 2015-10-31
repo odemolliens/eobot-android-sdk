@@ -227,6 +227,25 @@ public class ServerHelper {
     }
 
     /**
+     * Supported fiat coins URL
+     *
+     * @param value
+     * @return builded url
+     */
+    public String supportedFIATCoins(Boolean value) {
+        String rootUrl = ServerHelper.sharedServerHelper().rootURL();
+
+        String result = null;
+
+        if (value == true) {
+            result = "true";
+        } else {
+            result = "false";
+        }
+        return rootUrl + S_SERVERHELPER_API_PATH + "?supportedfiat=" + value + S_SERVERHELPER_API_KEY_JSON_RESULT;
+    }
+
+    /**
      * Supported coins URL
      *
      * @param value
