@@ -2,7 +2,7 @@ package com.oslab.eobotsdk.domain;
 
 import android.support.v4.util.Pair;
 
-import org.json.*;
+import org.json.JSONObject;
 
 /**
  * Coin
@@ -121,22 +121,25 @@ public class Coin {
         //TODO: fix when rules are on server
         if (this.getName().equals(Coin.CoinName.BTC.name())) {
             coinName = Coin.CoinName.BTC.name();
-            minimunDepositValue = "0.0005";
-        } else if (this.getName().equals(Coin.CoinName.DOGE.name())) {
-            coinName = Coin.CoinName.DOGE.name();
-            minimunDepositValue = "10.0";
-        } else if (this.getName().equals("PPC")) {
-            coinName = "PPC";
-            minimunDepositValue = "1.0";
-        } else if (this.getName().equals("NXT")) {
-            coinName = "NXT";
-            minimunDepositValue = "5.0";
-        } else if (this.getName().equals("RDD")) {
-            coinName = "RDD";
-            minimunDepositValue = "10.0";
-        } else {
+            minimunDepositValue = "0.001";
+        } else if (this.getName().equals(CoinName.LTC.name()) || this.getName().equals("DASH")) {
             coinName = this.getName();
-            minimunDepositValue = "0.01";
+            minimunDepositValue = "0.2";
+        } else if (this.getName().equals("NMC") || this.getName().equals("CURE") || this.getName().equals("XCP") || this.getName().equals("PPC") || this.getName().equals("ETH")) {
+            coinName = this.getName();
+            minimunDepositValue = "1.0";
+        } else if (this.getName().equals("BLK") || this.getName().equals("XRP") || this.getName().equals("XMR") || this.getName().equals("NXT")) {
+            coinName = this.getName();
+            minimunDepositValue = "10";
+        } else if (this.getName().equals(CoinName.DOGE.name()) || this.getName().equals("SJCX") || this.getName().equals("XLM") || this.getName().equals("MAID") || this.getName().equals("GRC")) {
+            coinName = this.getName();
+            minimunDepositValue = "100";
+        } else if (this.getName().equals("BCN") || this.getName().equals("BTS")) {
+            coinName = this.getName();
+            minimunDepositValue = "1000";
+        } else if (this.getName().equals("RDD")) {
+            coinName = this.getName();
+            minimunDepositValue = "10000";
         }
 
         return new Pair<String, String>(coinName, minimunDepositValue);
