@@ -45,6 +45,10 @@ Maven Setup
 ChangeLog
 ===
 
+** 1.0.5 **
+
+- Fix mininum deposit coins price
+
 ** 1.0.4 **
 
 - Added getSupportedFiatCoins service
