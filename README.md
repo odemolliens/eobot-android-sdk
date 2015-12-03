@@ -47,6 +47,10 @@ Maven Setup
 ChangeLog
 ===
 
+** 1.0.6 **
+
+- Error management + some bugs fix
+
 ** 1.0.5 **
 
 - Fix mininum deposit coins price
