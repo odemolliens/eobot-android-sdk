@@ -1,10 +1,10 @@
 package com.oslab.eobotsdk.service.manager;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.neopixl.logger.NPLog;
 import com.oslab.eobotsdk.app.App;
+import com.oslab.eobotsdk.constants.EobotErrorConstants;
 import com.oslab.eobotsdk.domain.EobotError;
 import com.squareup.okhttp.Cache;
 import com.squareup.okhttp.CacheControl;
@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -52,22 +53,26 @@ public class EobotTask extends AsyncTask<EobotTaskConfig, Void, EobotResult> {
             NPLog.e("Unable to set http cache:" + e);
         }
 
-        Request request;
+        try {
+            Request request;
 
-        if (cacheTime != S_EOBOT_TASK_NO_CACHE || forceRefresh == true) {
-            request = new Request.Builder()
-                    .url(url)
-                    .build();
-        } else {
-            request = new Request.Builder()
-                    .url(url)
-                    .cacheControl(new CacheControl.Builder().maxAge(cacheTime, TimeUnit.MINUTES).build())
-                    .build();
+            if (cacheTime != S_EOBOT_TASK_NO_CACHE || forceRefresh == true) {
+                request = new Request.Builder()
+                        .url(url)
+                        .build();
+            } else {
+                request = new Request.Builder()
+                        .url(url)
+                        .cacheControl(new CacheControl.Builder().maxAge(cacheTime, TimeUnit.MINUTES).build())
+                        .build();
+            }
+
+            Response response = mClient.newCall(request).execute();
+
+            return new EobotResult(response.code(), response.body().string());
+        } catch (UnknownHostException e) {
+            return new EobotResult(EobotErrorConstants.S_ERROR_NO_NETWORK, "");
         }
-
-        Response response = mClient.newCall(request).execute();
-
-        return new EobotResult(response.code(), response.body().string());
     }
 
     /**
@@ -81,8 +86,8 @@ public class EobotTask extends AsyncTask<EobotTaskConfig, Void, EobotResult> {
         try {
 
             // Define timeout
-            mClient.setConnectTimeout(10, TimeUnit.SECONDS);
-            mClient.setWriteTimeout(10, TimeUnit.SECONDS);
+            mClient.setConnectTimeout(15, TimeUnit.SECONDS);
+            mClient.setWriteTimeout(15, TimeUnit.SECONDS);
             mClient.setReadTimeout(30, TimeUnit.SECONDS);
 
             EobotTaskConfig config = params[0];
@@ -92,7 +97,7 @@ public class EobotTask extends AsyncTask<EobotTaskConfig, Void, EobotResult> {
         } catch (IOException e) {
             e.printStackTrace();
             //TODO:
-            return new EobotResult(-1, "");
+            return new EobotResult(EobotErrorConstants.S_ERROR_NETWORK_ISSUE, "");
         }
     }
 
@@ -115,10 +120,16 @@ public class EobotTask extends AsyncTask<EobotTaskConfig, Void, EobotResult> {
                 mDelegate.failure(EobotError.parseError());
             }
 
-
         } else {
-            //TODO: manage error 500 etc..
-            mDelegate.failure(EobotError.parseError());
+            if (result.getResultCode() == EobotErrorConstants.S_ERROR_NO_NETWORK) {
+                mDelegate.failure(EobotError.noNetworkError());
+            } else if (result.getResultCode() == EobotErrorConstants.S_ERROR_SERVER_ERROR) {
+                mDelegate.failure(EobotError.serverError());
+            } else {
+                //TODO: unknow case
+                mDelegate.failure(EobotError.serverError());
+            }
+
         }
 
 

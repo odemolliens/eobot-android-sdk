@@ -9,8 +9,14 @@
 
     <!-- Internet -->
     <string name="internet_need_internet">It is necessary to be connected to the internet, please check your connection</string>
+    <string name="internet_need_internet_issues">Network issues, please retry</string>
     <string name="internet_sign">Please Sign in or Sign up</string>
     <string name="internet_connecting">Connecting&#8230;</string>
 
-
+    <!-- Mining -->
+    <string name="mining_scrypt">"Mining Scrypt"</string>
+    <string name="mining_sha">"Mining SHA256"</string>
+    <string name="mining_cloud_scrypt">"Cloud Scrypt"</string>
+    <string name="mining_cloud_sha">"Cloud SHA 256"</string>
+    <string name="mining_cloud_sha2">"Cloud 2 SHA 256"</string>
 </resources>

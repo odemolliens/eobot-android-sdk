@@ -13,13 +13,17 @@ public class EobotErrorConstants {
      */
     public static final int S_ERROR_PARSE_ERROR = -99;
     /**
+     * Mobile side - network issue
+     */
+    public static final int S_ERROR_NETWORK_ISSUE = -103;
+    /**
      * Mobile side - no network
      */
     public static final int S_ERROR_NO_NETWORK = -100;
     /**
      * Server side - error on server
      */
-    public static final int S_ERROR_SERVER_ERROR = -101;
+    public static final int S_ERROR_SERVER_ERROR = 500;
     /**
      * Server side - user not logged or password changed
      */
