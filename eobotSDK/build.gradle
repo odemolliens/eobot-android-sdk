@@ -11,6 +11,13 @@ android {
         versionCode 6
         versionName "1.0"
     }
+
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -30,4 +37,4 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.4.0'
 }
 
-group='com.github.odemolliens'
+group = 'com.github.odemolliens'
