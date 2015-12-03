@@ -1,6 +1,8 @@
 # eobot-android-sdk
 [![JitPackGradle](https://img.shields.io/github/tag/odemolliens/eobot-android-sdk.svg?label=gradle)](https://jitpack.io/#odemolliens/eobot-android-sdk/)
 [![JitPackMaven](https://img.shields.io/github/tag/odemolliens/eobot-android-sdk.svg?label=maven)](https://jitpack.io/#odemolliens/eobot-android-sdk/)
+[![Travis](https://travis-ci.org/odemolliens/eobot-android-sdk.svg)](https://travis-ci.org/odemolliens/eobot-android-sdk)
+
 
 
 Gradle Setup
