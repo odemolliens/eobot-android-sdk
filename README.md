@@ -2,6 +2,7 @@
 [![JitPackGradle](https://img.shields.io/github/tag/odemolliens/eobot-android-sdk.svg?label=gradle)](https://jitpack.io/#odemolliens/eobot-android-sdk/)
 [![JitPackMaven](https://img.shields.io/github/tag/odemolliens/eobot-android-sdk.svg?label=maven)](https://jitpack.io/#odemolliens/eobot-android-sdk/)
 [![Travis](https://travis-ci.org/odemolliens/eobot-android-sdk.svg)](https://travis-ci.org/odemolliens/eobot-android-sdk)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/odemolliens/eobot-android-sdk/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 
 
@@ -80,6 +81,10 @@ ChangeLog
 - All services from Eobot API are implemented
 - All basics unit test are implemented
 
+Donation
+==========
+[![Donation](https://blockchain.info/Resources/buttons/donate_64.png)](https://blockchain.info/address/1EobotDynsNEcx7X1TTkccq3RFqXoFPtP)
+
 
 Copyright
 ==========
@@ -101,6 +106,4 @@ Copyright
 
 	permissions and limitations under the License.
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/odemolliens/eobot-android-sdk/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
