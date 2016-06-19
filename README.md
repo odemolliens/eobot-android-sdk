@@ -48,6 +48,10 @@ Maven Setup
 ChangeLog
 ===
 
+** 1.0.8 **
+
+- Added X11 mining
+
 ** 1.0.7 **
 
 - Some bugs fix
@@ -105,5 +109,3 @@ Copyright
 	ANY KIND, either express or implied. See the License for the specific language governing
 
 	permissions and limitations under the License.
-
-
