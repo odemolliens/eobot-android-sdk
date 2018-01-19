@@ -47,6 +47,9 @@ public class EobotError {
             case EobotErrorConstants.S_ERROR_SERVER_ERROR:
                 message = R.string.app_error_error;
                 break;
+            case EobotErrorConstants.S_ERROR_NETWORK_ISSUE:
+                message = R.string.internet_need_internet_issues;
+                break;
 
             case EobotErrorConstants.S_ERROR_SERVER_BAD_USER:
                 message = R.string.app_error_user;
@@ -56,8 +59,27 @@ public class EobotError {
                 message = R.string.app_error_error;
                 break;
         }
+        // public static final int S_ERROR_NETWORK_ISSUE = -103;
 
         mLocalizedMessage = message;
+    }
+
+    /**
+     * Get default message
+     *
+     * @return localized ID message
+     */
+    public String getDefaultMessage(String defaultTitle) {
+        //TODO: refactor constants in enum
+        if (mErrorCode == EobotErrorConstants.S_ERROR_PARSE_ERROR
+                || mErrorCode == EobotErrorConstants.S_ERROR_NO_NETWORK
+                || mErrorCode == EobotErrorConstants.S_ERROR_SERVER_ERROR
+                || mErrorCode == EobotErrorConstants.S_ERROR_NETWORK_ISSUE
+                || mErrorCode == EobotErrorConstants.S_ERROR_SERVER_BAD_USER) {
+            return getLocalizedMessage();
+        } else {
+            return defaultTitle;
+        }
     }
 
     /**

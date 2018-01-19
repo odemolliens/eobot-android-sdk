@@ -97,6 +97,32 @@ public class EobotServiceTest extends ApplicationTestCase<Application> {
 
 
     /**
+     * Get supported fiat coin TRUE successed
+     */
+    public void testCoinFIATSupportedTrueSuccess() {
+        EobotService.getSupportedFiatCoins(true, new EobotInterface.EobotSupportedCoinListener() {
+            @Override
+            public void successed(ArrayList<Coin> coinArrayList) {
+
+                //if coinArrayList is empty we get a failure callback
+                Coin coin = coinArrayList.get(0);
+                assert coin.getName().equals("BTC");
+                assert coin.getBigImage().equals("https://www.eobot.com/btcbig.png");
+                assert coin.getImage().equals("https://www.eobot.com/btc.png");
+                //Price always change... so we test only if we have something or not
+                assert coin.getPrice() > 0;
+
+                assert true;
+            }
+
+            @Override
+            public void failure(EobotError output) {
+                assert false;
+            }
+        });
+    }
+
+    /**
      * Get supported coin TRUE successed
      */
     public void testCoinSupportedTrueSuccess() {

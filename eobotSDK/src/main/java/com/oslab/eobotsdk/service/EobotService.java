@@ -9,14 +9,16 @@ import com.oslab.eobotsdk.domain.Speed;
 import com.oslab.eobotsdk.domain.Total;
 import com.oslab.eobotsdk.domain.User;
 import com.oslab.eobotsdk.domain.UserID;
+import com.oslab.eobotsdk.helper.ServerHelper;
 import com.oslab.eobotsdk.service.manager.EobotInterface;
 import com.oslab.eobotsdk.service.manager.EobotTask;
-import com.oslab.eobotsdk.helper.ServerHelper;
 import com.oslab.eobotsdk.service.manager.EobotTaskConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -35,8 +37,16 @@ public class EobotService {
      * @param listener Mining listener
      */
     public static void login(final User user, final EobotInterface.EobotLoginListener listener) {
+
+        String userPwd;
+        try {
+            userPwd = URLEncoder.encode(user.getUserPassword(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            userPwd = user.getUserPassword();
+        }
+
         //GET
-        String url = ServerHelper.sharedServerHelper().loginURL(user.getUserEmail(), user.getUserPassword());
+        String url = ServerHelper.sharedServerHelper().loginURL(user.getUserEmail(), userPwd);
 
         EobotTask aTask = new EobotTask();
 
@@ -116,6 +126,7 @@ public class EobotService {
      * @param listener Total listener
      */
     public static void getBalance(User user, final EobotInterface.EobotTotalListener listener) {
+
         //GET
         String url = ServerHelper.sharedServerHelper().totalURL(user.getUserID());
 
@@ -290,8 +301,18 @@ public class EobotService {
      * @param listener ChangeMining Listener
      */
     public static void changeMining(User user, String coinName, final EobotInterface.EobotChangeMiningListener listener) {
+
+
+        String userPwd = null;
+        try {
+            userPwd = URLEncoder.encode(user.getUserPassword(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            userPwd = user.getUserPassword();
+        }
+
+
         //GET
-        String url = ServerHelper.sharedServerHelper().changeMiningURL(user.getUserID(), user.getUserEmail(), user.getUserPassword(), coinName);
+        String url = ServerHelper.sharedServerHelper().changeMiningURL(user.getUserID(), user.getUserEmail(), userPwd, coinName);
 
         EobotTask aTask = new EobotTask();
 
@@ -352,8 +373,16 @@ public class EobotService {
      * @param listener    Convert listener
      */
     public static void buyCloud(User user, String convertFrom, String amount, String convertTo, final EobotInterface.EobotConvertListener listener) {
+
+        String userPwd;
+        try {
+            userPwd = URLEncoder.encode(user.getUserPassword(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            userPwd = user.getUserPassword();
+        }
+
         //GET
-        String url = ServerHelper.sharedServerHelper().convertURL(user.getUserID(), user.getUserEmail(), user.getUserPassword(), convertFrom, amount, convertTo);
+        String url = ServerHelper.sharedServerHelper().convertURL(user.getUserID(), user.getUserEmail(), userPwd, convertFrom, amount, convertTo);
 
         EobotTask aTask = new EobotTask();
 
@@ -383,6 +412,7 @@ public class EobotService {
      * @param listener    Convert listener
      */
     public static void exchangeEstimateCoin(String convertFrom, String amount, String convertTo, final EobotInterface.EobotExchangeEstimateListener listener) {
+
         //GET
         String url = ServerHelper.sharedServerHelper().exchangeEstimateURL(convertFrom, amount, convertTo);
 
@@ -471,6 +501,62 @@ public class EobotService {
     }
 
     /**
+     * Supported coins service
+     *
+     * @param value    supported or not
+     * @param listener SupportedCoi listener
+     */
+    public static void getSupportedFiatCoins(Boolean value, final EobotInterface.EobotSupportedCoinListener listener) {
+        //GET
+        String url = ServerHelper.sharedServerHelper().supportedFIATCoins(value);
+
+        EobotTask aTask = new EobotTask();
+
+        aTask.setDelegate(new EobotInterface.EobotBasicListener() {
+            @Override
+            public void successed(JSONObject output) {
+                try {
+
+                    ArrayList<Coin> coinArrayList = new ArrayList<Coin>();
+
+                    Iterator<?> keys = output.keys();
+
+                    while (keys.hasNext()) {
+                        String key = (String) keys.next();
+                        if (key != null && output.get(key) instanceof JSONObject) {
+
+                            Coin coin = new Coin((JSONObject) output.get(key), key);
+
+                            if (coin != null) {
+                                coinArrayList.add(coin);
+                            }
+                        }
+                    }
+
+                    if (coinArrayList.size() == 0) {
+                        listener.failure(EobotError.serverError());
+                    } else {
+                        listener.successed(coinArrayList);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    listener.failure(EobotError.parseError());
+                }
+            }
+
+            @Override
+            public void failure(EobotError output) {
+                listener.failure(output);
+            }
+        });
+
+        EobotTaskConfig config = new EobotTaskConfig(url, 24 * 60, false);
+        aTask.execute(config);
+
+    }
+
+    /**
      * Manual withdraw
      *
      * @param user     user account
@@ -480,8 +566,16 @@ public class EobotService {
      * @param listener EobotWithdrawListener
      */
     public static void manualWithdraw(User user, String address, Coin coin, double amount, final EobotInterface.EobotWithdrawListener listener) {
+
+        String userPwd;
+        try {
+            userPwd = URLEncoder.encode(user.getUserPassword(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            userPwd = user.getUserPassword();
+        }
+
         //GET
-        String url = ServerHelper.sharedServerHelper().manualWithdraw(user.getUserID(), user.getUserEmail(), user.getUserPassword(), coin, amount, address);
+        String url = ServerHelper.sharedServerHelper().manualWithdraw(user.getUserID(), user.getUserEmail(), userPwd, coin, amount, address);
 
         EobotTask aTask = new EobotTask();
 
@@ -511,8 +605,16 @@ public class EobotService {
      * @param listener EobotWithdrawListener
      */
     public static void automaticWithdraw(User user, String address, Coin coin, double amount, final EobotInterface.EobotWithdrawListener listener) {
+
+        String userPwd;
+        try {
+            userPwd = URLEncoder.encode(user.getUserPassword(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            userPwd = user.getUserPassword();
+        }
+
         //GET
-        String url = ServerHelper.sharedServerHelper().automaticWithdraw(user.getUserID(), user.getUserEmail(), user.getUserPassword(), coin, amount, address);
+        String url = ServerHelper.sharedServerHelper().automaticWithdraw(user.getUserID(), user.getUserEmail(), userPwd, coin, amount, address);
 
         EobotTask aTask = new EobotTask();
 

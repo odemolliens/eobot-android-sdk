@@ -32,6 +32,11 @@ public class Speed {
     private double cloud2SHA256;
 
     /**
+     * X11
+     */
+    private double cloudX11;
+
+    /**
      * Public constructor
      *
      * @param json json values
@@ -42,6 +47,7 @@ public class Speed {
         this.cloudSHA256 = Double.valueOf(json.optString("CloudSHA-256"));
         this.miningScrypt = Double.valueOf(json.optString("MiningScrypt"));
         this.cloud2SHA256 = Double.valueOf(json.optString("Cloud2SHA-256"));
+        this.cloudX11 = Double.valueOf(json.optString("MiningX11"));
     }
 
     /**
@@ -89,4 +95,12 @@ public class Speed {
         return this.cloud2SHA256;
     }
 
+    /**
+     * Get X11
+     *
+     * @return current cloud X11 estimation
+     */
+    public double getCloudX11() {
+        return cloudX11;
+    }
 }

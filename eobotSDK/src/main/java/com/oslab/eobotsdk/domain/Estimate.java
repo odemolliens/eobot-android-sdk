@@ -1,5 +1,10 @@
 package com.oslab.eobotsdk.domain;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+
+import com.oslab.eobotsdk.R;
+
 import org.json.JSONObject;
 
 /**
@@ -42,6 +47,32 @@ public class Estimate {
         this.cloudSHA256 = Double.valueOf(json.optString("CloudSHA-256"));
         this.miningScrypt = Double.valueOf(json.optString("MiningScrypt"));
         this.cloud2SHA256 = Double.valueOf(json.optString("Cloud2SHA-256"));
+    }
+
+    /**
+     * Get estimation
+     *
+     * @param context  current context
+     * @param mining   current mining name
+     * @param estimate current estimate object
+     * @return
+     */
+    public double getEstimate(@NonNull Context context, @NonNull String mining, @NonNull Estimate estimate) {
+        double value = 0;
+
+        if (mining.equals(context.getString(R.string.mining_sha))) {
+            value = estimate.getMiningSHA256();
+        } else if (mining.equals(context.getString(R.string.mining_scrypt))) {
+            value = estimate.getMiningScrypt();
+        } else if (mining.equals(context.getString(R.string.mining_cloud_scrypt))) {
+            value = estimate.getCloudScrypt();
+        } else if (mining.equals(context.getString(R.string.mining_cloud_sha))) {
+            value = estimate.getCloudSHA256();
+        } else if (mining.equals(context.getString(R.string.mining_cloud_sha2))) {
+            value = estimate.getCloud2SHA256();
+        }
+
+        return value / 30.5;
     }
 
     /**
